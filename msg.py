@@ -13,6 +13,7 @@ load_dotenv(dotenv_path=env_path)
 
 client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 BOT_ID = client.api_call("auth.test")['user_id'] #get bot id
+USER_ID_TEST = os.environ['USER_ID_TEST']
 
 def bot_chat():
 	try:
@@ -23,5 +24,16 @@ def bot_chat():
 	except SlackApiError as e:
 		assert e.response["error"]
 
+def emphemeral_chat():
+	try:
+		response = client.chat_postEphemeral(
+			channel="#python-bot",
+			text="Happy Birthday! :tada:",
+            user=USER_ID_TEST
+		)
+	except SlackApiError as e:
+		assert e.response["error"]
+
 if __name__ == "__main__":
-	bot_chat()
+	#bot_chat()
+    emphemeral_chat()
