@@ -47,13 +47,22 @@ def getChannels():
 
 # get members
 def getMembers():
-	try:
-		response = client.users_list()
-		users = response["members"]
-		user_ids = list(map(lambda x: x["id"], users))
-		print(user_ids)
-	except SlackApiError as e:
-		assert e.response["error"]
+    try:
+        response = client.users_list()
+        users = response["members"]
+        for index, item in enumerate(users):
+            print(index, users[index]['id'], users[index]['real_name'])
+
+        '''
+        users = response["members"]
+        i = 0
+        while i < len(users):
+            print(users[i]['id'], users[i]['real_name'])
+            i += 1
+        '''
+
+    except SlackApiError as e:
+        assert e.response["error"]
 
 if __name__ == "__main__":
 	#bot_chat()
