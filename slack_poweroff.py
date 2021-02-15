@@ -16,34 +16,6 @@ client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 BOT_ID = client.api_call("auth.test")['user_id'] #get bot id
 USER_ID = os.environ['USER_ID']
 
-def bot_chat():
-	try:
-		response = client.chat_postMessage(
-			channel="#python-bot",
-			text="test2 :tada:"
-		)
-	except SlackApiError as e:
-		assert e.response["error"]
-
-def emphemeral_chat():
-	try:
-		response = client.chat_postEphemeral(
-			channel="#python-bot",
-			text="Happy Birthday! :tada:",
-            user=USER_ID
-		)
-	except SlackApiError as e:
-		assert e.response["error"]
-
-# list channels
-def getChannels():
-	try:
-		response = client.conversations_list()
-		channels = response["channels"]
-		list_channels = list(map(lambda x: x["name"], channels))
-		print(list_channels)
-	except SlackApiError as e:
-		assert e.response["error"]
 
 # get members
 def getMembers():
@@ -64,20 +36,18 @@ def getMembers():
     except SlackApiError as e:
         assert e.response["error"]
 
-def getStatus():
+def powerOff():
     try: 
         response = client.users_list()
         users = response["members"]
         for index, item in enumerate(users):
             if (users[index]['id'] == USER_ID) and (users[index]['profile']['status_text'] == "off"):
                 print(f"found name: {users[index]['profile']['real_name']}, text_status: {users[index]['profile']['status_text']}")
+                os.system('shutdown -s')
     except SlackApiError as e:
         assert e.response["error"]
 
 
 if __name__ == "__main__":
-	#bot_chat()
-    #emphemeral_chat()
-    #getChannels()
 	#getMembers()
     #getStatus()
