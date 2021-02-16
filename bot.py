@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 from flask import Flask, request, Response
 from slackeventsapi import SlackEventAdapter
 from datetime import datetime, timedelta
-#import pprint
-#printer = pprint.PrettyPrinter()
 
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)

@@ -52,6 +52,7 @@ def getMembers():
         users = response["members"]
         for index, item in enumerate(users):
             print(index, users[index]['id'], users[index]['real_name'])
+            #print(index, users[index]['id'], users[index]['profile']['display_name'], users[index]['real_name'])
 
         '''
         users = response["members"]
@@ -79,5 +80,5 @@ if __name__ == "__main__":
 	#bot_chat()
     #emphemeral_chat()
     #getChannels()
-	#getMembers()
+	getMembers()
     #getStatus()
